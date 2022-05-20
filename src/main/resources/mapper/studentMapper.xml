@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.IStudentMapper">
+
+    <insert id="save" parameterType="com.po.Student">
+ insert into student(sname,birthday,sex,saddress,classid) values(#{sname},#{birthday},#{sex},#{saddress},#{classid})
+ </insert>
+    <delete id="delById" parameterType="java.lang.Integer">
+ delete from student where sid=#{sid}
+ </delete>
+    <update id="update" parameterType="com.po.Student">
+ update student set sname=#{sname},birthday=#{birthday},sex=#{sex},saddress=#{saddress},classid=#{classid} where sid=#{sid}
+ </update>
+    <select id="findById" parameterType="java.lang.Integer" resultType="com.po.Student">
+ select * from student where sid=#{sid}
+ </select>
+    <select id="findPageAll" parameterType="java.lang.Integer" resultType="com.po.Student">
+ select a.*,b.cname from student a left join class b on classid=cid order by sid limit ${(page-1)*rows},${rows}
+ </select>
+    <select id="rowsAcount" resultType="java.lang.Integer">
+ select count(*) from student
+ </select>
+    <select id="doinit" resultType="com.po.Clazz">
+ select * from class where 1=1
+ </select>
+</mapper>
